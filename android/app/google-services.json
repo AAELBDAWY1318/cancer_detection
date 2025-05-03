@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "229876538562",
+    "project_id": "canser-1e437",
+    "storage_bucket": "canser-1e437.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:229876538562:android:a4637030f84e8471456f5b",
+        "android_client_info": {
+          "package_name": "com.example.first_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC5crUutxzVcpK2iCIak0QDYxvm1iAB7V4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:229876538562:android:ab6ab48dbfb629df456f5b",
+        "android_client_info": {
+          "package_name": "com.example.tfserving_example_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC5crUutxzVcpK2iCIak0QDYxvm1iAB7V4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
