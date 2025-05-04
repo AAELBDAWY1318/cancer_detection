@@ -1,6 +1,6 @@
+import 'dart:developer';
 import 'dart:io';
 import 'package:first_app/presentation/views/take_picture.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:camera/camera.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -32,7 +32,7 @@ class _HomePageState extends State<HomePage> {
       url: "https://54.93.172.29.nip.io/v1/models/skin_cancer:predict",
       labelsPath: "assets/labels.txt");
 
-  late LocalInferenceModel localInferenceModel;
+  LocalInferenceModel localInferenceModel = LocalInferenceModel()..init();
 
   // This widget is the root of your application.
   @override
@@ -46,7 +46,7 @@ class _HomePageState extends State<HomePage> {
 }
 
 class HomeScreen extends StatelessWidget {
-  HomeScreen() {
+  HomeScreen({super.key}) {
     init();
   }
 
@@ -76,19 +76,19 @@ class HomeScreen extends StatelessWidget {
         RadioButtonOption.local_inference) {
       BlocProvider.of<InferenceCubit>(context).inference_local(imageFile);
     } else {
-      BlocProvider.of<InferenceCubit>(context).inference_api(imageFile);
+      BlocProvider.of<InferenceCubit>(context).inference_local(imageFile);
     }
   }
 
   List<Widget> buttonTitles = <Widget>[
-    Row(children: [
+    const Row(children: [
       Icon(Icons.phone_android_rounded),
       SizedBox(
         width: 7,
       ),
       Text('local Tflite')
     ]),
-    Row(children: [
+    const Row(children: [
       Icon(Icons.public),
       SizedBox(
         width: 7,
@@ -106,10 +106,10 @@ class HomeScreen extends StatelessWidget {
           Center(
             child: Column(
               children: [
-                SizedBox(
+                const SizedBox(
                   height: 50,
                 ),
-                Container(
+                SizedBox(
                   width: MediaQuery.sizeOf(context).width * 0.9,
                   height: MediaQuery.sizeOf(context).height * 0.4,
                   child: Card(
@@ -149,7 +149,7 @@ class HomeScreen extends StatelessWidget {
                           ),
                           child: IconButton(
                             key: _key,
-                            icon: Icon(
+                            icon: const Icon(
                               Icons.info,
                               size: 30,
                               color: Colors.white,
@@ -171,8 +171,8 @@ class HomeScreen extends StatelessWidget {
                                   elevation: 10,
                                   color: Colors.white,
                                   child: ListTile(
-                                    title: Text("Take photo"),
-                                    subtitle: Text(
+                                    title: const Text("Take photo"),
+                                    subtitle: const Text(
                                         "It will take a moment to process"),
                                     leading: Icon(
                                       Icons.camera_alt,
@@ -183,7 +183,7 @@ class HomeScreen extends StatelessWidget {
                             ),
                           ),
                         ),
-                        Positioned(
+                        const Positioned(
                           left: 170,
                           top: 20,
                           child: Text(
@@ -194,8 +194,8 @@ class HomeScreen extends StatelessWidget {
                                 fontWeight: FontWeight.bold),
                           ),
                         ),
-                        Padding(
-                          padding: const EdgeInsets.only(
+                        const Padding(
+                          padding: EdgeInsets.only(
                             left: 85,
                             top: 50,
                           ),
@@ -212,10 +212,10 @@ class HomeScreen extends StatelessWidget {
                     ),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
-                Container(
+                SizedBox(
                   width: MediaQuery.sizeOf(context).width * 0.9,
                   child: Card(
                     color: Theme.of(context).colorScheme.secondary,
@@ -223,7 +223,7 @@ class HomeScreen extends StatelessWidget {
                       children: [
                         Row(
                           children: [
-                            SizedBox(
+                            const SizedBox(
                               width: 20,
                             ),
                             Text("Inference modes",
@@ -231,23 +231,25 @@ class HomeScreen extends StatelessWidget {
                                     color: Theme.of(context)
                                         .colorScheme
                                         .onSecondary)),
-                            SizedBox(
+                            const SizedBox(
                               width: 162,
                             ),
-                            IconButton(
-                              key: _key2,
-                              icon: Icon(
-                                Icons.info,
-                                size: 30,
-                                color: Theme.of(context).colorScheme.primary,
+                            Expanded(
+                              child: IconButton(
+                                key: _key2,
+                                icon: Icon(
+                                  Icons.info,
+                                  size: 30,
+                                  color: Theme.of(context).colorScheme.primary,
+                                ),
+                                onPressed: () => showOverlay(
+                                    context, _key2, buildInferneceInfo()),
                               ),
-                              onPressed: () => showOverlay(
-                                  context, _key2, buildInferneceInfo()),
                             ),
                           ],
                         ),
                         Row(children: [
-                          SizedBox(
+                          const SizedBox(
                             width: 20,
                           ),
                           Text(
@@ -257,7 +259,7 @@ class HomeScreen extends StatelessWidget {
                                     Theme.of(context).colorScheme.onSecondary),
                           ),
                         ]),
-                        SizedBox(height: 10),
+                        const SizedBox(height: 10),
                         Center(
                           child:
                               BlocBuilder<ToggleButtonCubit, ToggleButtonState>(
@@ -289,26 +291,26 @@ class HomeScreen extends StatelessWidget {
                             },
                           ),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 20,
                         )
                       ],
                     ),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
-                Container(
+                SizedBox(
                     width: MediaQuery.sizeOf(context).width * 0.9,
                     child: Card(
                         color: Theme.of(context).colorScheme.secondary,
                         child: Container(
-                            padding: EdgeInsets.all(10),
+                            padding: const EdgeInsets.all(10),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Row(
+                                const Row(
                                   children: [
                                     SizedBox(
                                       width: 20,
@@ -319,7 +321,7 @@ class HomeScreen extends StatelessWidget {
                                     ),
                                   ],
                                 ),
-                                SizedBox(
+                                const SizedBox(
                                   height: 10,
                                 ),
                                 Image.network(
@@ -343,8 +345,9 @@ class HomeScreen extends StatelessWidget {
                 ),
               );
             } else if (state is InferenceError) {
+              log(state.error);
               return Center(
-                child: Container(
+                child: SizedBox(
                   width: MediaQuery.sizeOf(context).width * 0.9,
                   height: MediaQuery.sizeOf(context).height * 0.2,
                   child: Card(
@@ -352,7 +355,7 @@ class HomeScreen extends StatelessWidget {
                     color: Colors.white,
                     elevation: 10,
                     child: Container(
-                      padding: EdgeInsets.all(20),
+                      padding: const EdgeInsets.all(20),
                       child: Column(
                         children: [
                           Text(
@@ -363,7 +366,7 @@ class HomeScreen extends StatelessWidget {
                               onPressed: () =>
                                   BlocProvider.of<InferenceCubit>(context)
                                       .reset_state(),
-                              child: Text("Ok"))
+                              child: const Text("Ok"))
                         ],
                       ),
                     ),
@@ -372,7 +375,7 @@ class HomeScreen extends StatelessWidget {
               );
             } else if (state is InferenceSuccess) {
               return Center(
-                child: Container(
+                child: SizedBox(
                     width: MediaQuery.sizeOf(context).width * 0.9,
                     height: MediaQuery.sizeOf(context).height * 0.62,
                     child: Container(
@@ -383,7 +386,7 @@ class HomeScreen extends StatelessWidget {
                                 : Colors.red.shade700,
                           ),
                           boxShadow: [
-                            BoxShadow(
+                            const BoxShadow(
                               color: Colors.black38,
                               blurRadius: 3.0,
                               spreadRadius: 0.0,
@@ -410,7 +413,7 @@ class HomeScreen extends StatelessWidget {
                           )),
                       child: Column(
                         children: [
-                          SizedBox(
+                          const SizedBox(
                             height: 20,
                           ),
                           Center(
@@ -424,11 +427,11 @@ class HomeScreen extends StatelessWidget {
                                       MediaQuery.sizeOf(context).height * 0.3),
                             ),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 10,
                           ),
                           Center(
-                              child: Container(
+                              child: SizedBox(
                                   width:
                                       MediaQuery.of(context).size.width * 0.85,
                                   height: 160,
@@ -439,21 +442,21 @@ class HomeScreen extends StatelessWidget {
                                         padding: const EdgeInsets.all(10.0),
                                         child: Row(
                                           children: [
-                                            SizedBox(
+                                            const SizedBox(
                                               width: 10,
                                             ),
                                             Column(
                                               children: [
-                                                Container(
+                                                SizedBox(
                                                   width: 200,
                                                   child: Text(
-                                                      style: TextStyle(
+                                                      style: const TextStyle(
                                                           fontSize: 16),
                                                       "It could be a ${state.lesionName} with the following probabilty:"),
                                                 ),
                                               ],
                                             ),
-                                            SizedBox(
+                                            const SizedBox(
                                               width: 20,
                                             ),
                                             Column(
@@ -496,7 +499,7 @@ class HomeScreen extends StatelessWidget {
                                                             ))),
                                                   ],
                                                 ),
-                                                SizedBox(
+                                                const SizedBox(
                                                   height: 5,
                                                 ),
                                                 Row(
@@ -556,78 +559,11 @@ class HomeScreen extends StatelessWidget {
                     )),
               );
 
-              WidgetsBinding.instance.addPostFrameCallback((_) => showDialog(
-                  context: context,
-                  builder: (BuildContext context) {
-                    return ResultDialog(
-                        topPredictions: topPredictions, image: state.image);
-                  }));
             }
             return Container();
           })
         ],
       ),
-    );
-  }
-}
-
-class ResultDialog extends StatelessWidget {
-  ResultDialog({required this.topPredictions, required this.image, super.key});
-
-  List<MapEntry<String, double>> topPredictions;
-  File image;
-
-  @override
-  Widget build(BuildContext context) {
-    return AlertDialog(
-      backgroundColor: Theme.of(context).colorScheme.primary,
-      title: const Text("Results"),
-      actions: <Widget>[
-        Center(
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(8.0),
-            child: Image.file(image,
-                fit: BoxFit.contain,
-                width: MediaQuery.sizeOf(context).height * 0.3,
-                height: MediaQuery.sizeOf(context).height * 0.3),
-          ),
-        ),
-        Center(
-          child: Text(
-              'Class: ${topPredictions.first.key}  Probabilty: ${topPredictions.first.value}'),
-        ),
-        // TextButton(
-        //   style: ButtonStyle(
-        //     backgroundColor: WidgetStatePropertyAll<Color>(
-        //         Theme.of(context).colorScheme.secondary),
-        //   ),
-        //   onPressed: () => Navigator.of(context).pop(),
-        //   child: const Text('OK'),
-        // ),
-      ],
-    );
-  }
-}
-
-class ErrorDialog extends StatelessWidget {
-  ErrorDialog({required this.error, super.key});
-
-  String error;
-
-  @override
-  Widget build(BuildContext context) {
-    return AlertDialog(
-      title: const Text("Error"),
-      actions: <Widget>[
-        Container(
-            height: MediaQuery.sizeOf(context).height * 0.1,
-            decoration: customBoxDecoration(context),
-            child: Text(error)),
-        TextButton(
-          onPressed: () => Navigator.of(context).pop(),
-          child: const Text('OK'),
-        ),
-      ],
     );
   }
 }

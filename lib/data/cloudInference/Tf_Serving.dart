@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 import 'dart:typed_data';
 import 'package:flutter/services.dart';
 import 'package:image/image.dart' as image_lib;
@@ -48,6 +49,7 @@ class TfServing {
 
     var response = await http.post(_url,
         headers: {"Content-Type": "application/json"}, body: body);
+    log("$response");
     Map prediction = json.decode(response.body);
     print(response.headers.values);
     return prediction;
@@ -101,7 +103,7 @@ class TfServing {
       height: 224,
     );
 
-    print(image.height);
+    log("${image.height}");
 
     Map predictions = await getResponseArray(image);
     //Map predictions = await getResponse_base64(img_base64);

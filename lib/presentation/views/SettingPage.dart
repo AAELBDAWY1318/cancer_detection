@@ -19,14 +19,14 @@ class SettingsView extends StatelessWidget {
   final GlobalKey _key = GlobalKey();
 
   List<Widget> buttonTitles = <Widget>[
-    Row(children: [
+    const Row(children: [
       Icon(Icons.phone_android_rounded),
       SizedBox(
         width: 7,
       ),
       Text('local Tflite')
     ]),
-    Row(children: [
+    const Row(children: [
       Icon(Icons.public),
       SizedBox(
         width: 7,
@@ -40,17 +40,17 @@ class SettingsView extends StatelessWidget {
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.surface,
       appBar: AppBar(
-        title: Text(
+        title: const Text(
           "Settings",
         ),
       ),
       body: Column(
         children: [
-          SizedBox(
+          const SizedBox(
             height: 20,
           ),
           Center(
-            child: Container(
+            child: SizedBox(
               width: MediaQuery.sizeOf(context).width * 0.9,
               child: Card(
                 color: Theme.of(context).colorScheme.secondary,
@@ -58,30 +58,32 @@ class SettingsView extends StatelessWidget {
                   children: [
                     Row(
                       children: [
-                        SizedBox(
+                        const SizedBox(
                           width: 20,
                         ),
                         Text("Inference modes",
                             style: TextStyle(
                                 color:
                                     Theme.of(context).colorScheme.onSecondary)),
-                        SizedBox(
+                        const SizedBox(
                           width: 162,
                         ),
-                        IconButton(
-                          key: _key,
-                          icon: Icon(
-                            Icons.info,
-                            size: 30,
-                            color: Theme.of(context).colorScheme.primary,
+                        Expanded(
+                          child: IconButton(
+                            key: _key,
+                            icon: Icon(
+                              Icons.info,
+                              size: 30,
+                              color: Theme.of(context).colorScheme.primary,
+                            ),
+                            onPressed: () =>
+                                showOverlay(context, _key, buildInferneceInfo()),
                           ),
-                          onPressed: () =>
-                              showOverlay(context, _key, buildInferneceInfo()),
                         ),
                       ],
                     ),
                     Row(children: [
-                      SizedBox(
+                      const SizedBox(
                         width: 20,
                       ),
                       Text(
@@ -90,7 +92,7 @@ class SettingsView extends StatelessWidget {
                             color: Theme.of(context).colorScheme.onSecondary),
                       ),
                     ]),
-                    SizedBox(height: 10),
+                    const SizedBox(height: 10),
                     Center(
                       child: BlocBuilder<ToggleButtonCubit, ToggleButtonState>(
                         builder: (context, state) {
@@ -119,7 +121,7 @@ class SettingsView extends StatelessWidget {
                         },
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 20,
                     )
                   ],
@@ -127,16 +129,16 @@ class SettingsView extends StatelessWidget {
               ),
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 10,
           ),
-          Container(
+          SizedBox(
               width: MediaQuery.sizeOf(context).width * 0.9,
               child: Card(
                   color: Theme.of(context).colorScheme.secondary,
                   child: Container(
-                      padding: EdgeInsets.all(20),
-                      child: Column(
+                      padding: const EdgeInsets.all(20),
+                      child: const Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text("Model information: ", style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),),

@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:io';
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
@@ -30,7 +31,7 @@ class InferenceCubit extends Cubit<InferenceState> {
     try {
       emit(InferenceLoading());
       var predictions = await localInferenceModel.inference(image);
-      print("##################### ${predictions.values}");
+      log("##################### ${predictions.values}");
       bool isMalignant;
       String probabilty;
       String lesionName;
